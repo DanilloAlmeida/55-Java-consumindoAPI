@@ -23,7 +23,10 @@ public class PrincipalComBusca {
         String busca="";
         List<Titulo> titulos = new ArrayList<>();
 
-        Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create();
+        Gson gson = new GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+                .setPrettyPrinting()
+                .create();
 
 
         while(!busca.equalsIgnoreCase("sair")) {
@@ -34,7 +37,7 @@ public class PrincipalComBusca {
                 break;
             }
 
-            String endereco = "https://www.omdbapi.com/?t=" + busca.replace(" ", "+") + "&apikey=coloque_sua_apikey";
+            String endereco = "https://www.omdbapi.com/?t=" +busca.replace(" ","+")+ "&apikey=736218fb";
             System.out.println(endereco);
             try {
                 HttpClient client = HttpClient.newHttpClient();
