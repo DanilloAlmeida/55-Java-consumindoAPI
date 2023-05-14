@@ -1,11 +1,13 @@
 package br.com.alura.screenmatch.principal;
 
+import br.com.alura.screenmatch.excecao.MeuErroDeConversao;
 import br.com.alura.screenmatch.modelos.Titulo;
 import br.com.alura.screenmatch.modelos.TituloOmdb;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -21,7 +23,7 @@ public class PrincipalComBusca {
         System.out.println("Digite um filme para busca");
         busca = leitura.nextLine();
 
-        String endereco = "https://www.omdbapi.com/?t=" +busca+ "&apikey=736218fb";
+        String endereco = "https://www.omdbapi.com/?t=" +busca.replace(" ","+")+ "&apikey=736218fb";
 
         try {
             HttpClient client = HttpClient.newHttpClient();
@@ -44,14 +46,19 @@ public class PrincipalComBusca {
             Titulo meuTitulo = new Titulo(meuTituloOmdb);
             System.out.println("\n---------->>>   imprimimdo meuTitulo");
             System.out.println(meuTitulo);
+
+            FileWriter escrita = new FileWriter("filmes.txt");
+            escrita.write(meuTitulo.toString());
+            escrita.close();
+
         }catch (NumberFormatException e){
-            System.out.println("Aconteceu um erro: ");
+            System.out.println("Aconteceu um erro de formato de número: ");
             System.out.println(e.getMessage());
         }catch (IllegalArgumentException e){
             System.out.println("Argumento inválido");
+        }catch (MeuErroDeConversao e){
+            System.out.println(e.getMessage());
         }
-
-
         System.out.println("\n<<< fim normal >>>");
     }
 }
