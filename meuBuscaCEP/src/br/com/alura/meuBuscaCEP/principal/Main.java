@@ -1,5 +1,6 @@
 package br.com.alura.meuBuscaCEP.principal;
 
+import br.com.alura.meuBuscaCEP.fabrica.GeradorDeArquivos;
 import br.com.alura.meuBuscaCEP.modelos.ConsultaCep;
 import br.com.alura.meuBuscaCEP.modelos.Endereco;
 
@@ -21,6 +22,8 @@ public class Main {
 //            novoEndereco = consultaCep.buscaEndereco("01001000");
             novoEndereco = consultaCep.buscaEndereco(cepEntrada);
             System.out.println(novoEndereco);
+            GeradorDeArquivos gerador = new GeradorDeArquivos();
+            gerador.salvaJson(novoEndereco);
         }catch (RuntimeException e){
             System.out.println(e.getMessage());
         }
